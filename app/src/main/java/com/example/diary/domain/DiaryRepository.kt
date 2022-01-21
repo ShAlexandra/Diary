@@ -1,5 +1,7 @@
 package com.example.diary.domain
 
+import androidx.lifecycle.LiveData
+
 interface DiaryRepository {
 
     fun addDailyItem(dailyItem: DailyItem)
@@ -10,5 +12,5 @@ interface DiaryRepository {
 
     fun getDailyItem(shopDailyId: Int): DailyItem
 
-    fun getDailyList(): List<DailyItem>
+    fun getDailyList(): LiveData<List<DailyItem>>
 }
