@@ -1,8 +1,8 @@
 package com.example.diary.domain
 
-class GetDailyItemUseCase{
+class GetDailyItemUseCase(private val diaryRepository: DiaryRepository){
 
     fun getDailyItem(dailyItemId: Int):DailyItem{
-        TODO()
+        return diaryRepository.getDailyItem(dailyItemId)
     }
 }
