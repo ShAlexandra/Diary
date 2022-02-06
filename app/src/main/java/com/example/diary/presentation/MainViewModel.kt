@@ -18,6 +18,4 @@ class MainViewModel:ViewModel() {
     fun deleteDailyItem(dailyItem: DailyItem){
         deleteDailyItemUseCase.deleteDailyItem(dailyItem)
     }
-
-    //fun changeEnableState  разберемся с изменением в другом окне позже
 }

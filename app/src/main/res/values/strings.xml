@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">Diary</string>
+    <string name="add_new_daily_item">Add new daily item</string>
+    <string-array name="spinner_array">
+        <item>8.00-9.00</item>
+        <item>9.00-10.00</item>
+        <item>10.00-11.00</item>
+        <item>11.00-12.00</item>
+        <item>12.00-13.00</item>
+        <item>13.00-14.00</item>
+        <item>14.00-15.00</item>
+        <item>15.00-16.00</item>
+        <item>16.00-17.00</item>
+        <item>17.00-18.00</item>
+        <item>19.00-20.00</item>
+        <item>20.00-21.00</item>
+    </string-array>
 </resources>
