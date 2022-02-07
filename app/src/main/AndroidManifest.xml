@@ -21,6 +21,8 @@
         <activity android:name=".presentation.DailyItemActivity"
             android:windowSoftInputMode="adjustResize">
         </activity>
+        <activity android:name=".presentation.DailyItemOverviewActivity">
+        </activity>
 
     </application>
 

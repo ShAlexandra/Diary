@@ -58,12 +58,6 @@ class DailyItemActivity : AppCompatActivity() {
             throw RuntimeException("Unknown screen mode $mode")
         }
         screenMode = mode
-        if (screenMode == MODE_WATCH) {
-            if (!intent.hasExtra(EXTRA_SHOP_ITEM_ID)) {
-                throw RuntimeException("Param shop item id don't exist here")
-            }
-            shopItemId = intent.getIntExtra(EXTRA_SHOP_ITEM_ID, DailyItem.UNDEFINED_ID)
-        }
     }
 
     private fun initViews() {
@@ -91,8 +85,6 @@ class DailyItemActivity : AppCompatActivity() {
         buttonSave.setOnClickListener {
             if (calYear == UNSPECIFIED && calMonth == UNSPECIFIED && calDay == UNSPECIFIED) {
                 val newData = Timestamp(calendarView.date).toString()
-                //calYear = newData[0].digitToInt() * 1000 + newData[1].digitToInt() * 100 +
-                //      newData[2].digitToInt() * 10 + newData[3].digitToInt()
                 calYear = newData.substringBefore('-').toInt()
                 calMonth = newData.substringAfter('-').substringBefore('-').toInt()
                 calDay =
@@ -158,7 +150,6 @@ class DailyItemActivity : AppCompatActivity() {
         private const val MODE_ADD = "mode_add"
         private const val MODE_WATCH = "mode_watch"
         private const val MODE_UNKNOWN = ""
-        private const val EXTRA_SHOP_ITEM_ID = "extra_shop_item_id"
         private const val UNSPECIFIED = -1
 
         fun newIntentAddItem(context: Context): Intent {

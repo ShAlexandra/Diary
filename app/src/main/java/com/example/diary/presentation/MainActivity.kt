@@ -25,9 +25,9 @@ class MainActivity : AppCompatActivity() {
         val buttonAddItem = findViewById<FloatingActionButton>(R.id.button_add_new_item)
         buttonAddItem.setOnClickListener {
             val intent = DailyItemActivity.newIntentAddItem(this)
-            intent.putExtra("extra_mode", "mode_add")
             startActivity(intent)
         }
+
     }
 
     private fun setupRecyclerView() {
@@ -35,6 +35,14 @@ class MainActivity : AppCompatActivity() {
         with(rvDailyList) {
             dailyListAdapter = DailyListAdapter()
             adapter = dailyListAdapter
+        }
+        setupClickListener()
+    }
+
+    private fun setupClickListener(){
+        dailyListAdapter.onDailyItemClickListener={
+            val intent=DailyItemOverviewActivity.newIntentOverviewItem(this, it.id)
+            startActivity(intent)
         }
     }
 }

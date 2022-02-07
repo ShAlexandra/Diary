@@ -58,6 +58,7 @@ class DailyItemViewModel : ViewModel() {
         }
     }
 
+
     private fun parseStringInput(inputValue: String?): String {
         return inputValue?.trim() ?: ""
     }

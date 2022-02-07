@@ -37,11 +37,6 @@ object DiaryRepositoryImpl : DiaryRepository {
         updateList()
     }
 
-    override fun editDailyItem(dailyItem: DailyItem) {
-        val oldElement = getDailyItem(dailyItem.id)
-        dailyList.remove(oldElement)
-        addDailyItem(dailyItem)
-    }
 
     override fun getDailyItem(dailyItemId: Int): DailyItem {
         return dailyList.find {
