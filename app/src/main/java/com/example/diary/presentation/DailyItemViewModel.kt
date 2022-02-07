@@ -1,5 +1,6 @@
 package com.example.diary.presentation
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,6 +9,7 @@ import com.example.diary.domain.AddDailyItemUseCase
 import com.example.diary.domain.DailyItem
 import com.example.diary.domain.GetDailyItemUseCase
 import java.sql.Timestamp
+import kotlin.time.Duration.Companion.days
 
 class DailyItemViewModel : ViewModel() {
 
@@ -34,19 +36,23 @@ class DailyItemViewModel : ViewModel() {
     }
 
     fun addDailyItem(
-        inputDate: Long,
+        inputYear: Int,
+        inputMonth: Int,
+        inputDay: Int,
         inputTime: String,
         inputName: String?,
         inputDescription: String?
-    ) { //TODO ПРОВЕРИТЬ!!!
+    ) {
+        Log.d("inputTime",inputTime)
         val name = parseStringInput(inputName)
         val description = parseStringInput(inputDescription)
-        val dateStart =
-            inputDate + (inputTime[0].digitToInt() * 10 + inputTime[1].digitToInt()) * 3600000
-        val dateFinish = dateStart + 3600000
-        inputDate + inputTime[0].digitToInt() * 10 + inputTime[1].digitToInt()
+        //val timeStart="${inputTime[0]}${inputTime[1]}".toInt()
+        val timeStart=inputTime.substringBefore('.').toInt()
+        val dateStart = Timestamp.valueOf("$inputYear-$inputMonth-$inputDay ${timeStart}:00:00")
+        val dateFinish=Timestamp.valueOf("$inputYear-$inputMonth-$inputDay ${timeStart+1}:00:00")
+        Log.d("OUR_DATE",dateStart.toString())
         if (validateInput(name)) {//невалидным мб только имя
-            val dailyItem = DailyItem(Timestamp(dateStart), Timestamp(dateFinish), name, description)
+            val dailyItem = DailyItem(dateStart, dateFinish, name, description)
             addDailyItemUseCase.addDailyItem(dailyItem)
             finishWork()
         }

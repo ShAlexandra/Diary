@@ -14,15 +14,15 @@ object DiaryRepositoryImpl : DiaryRepository {
 
     private var autoIncrementId = 0
 
-    init {
+    /*init {
         for (i in 0 until 13) {
             //позже, возможно, буду задавать реальную дату, чтобы сменять дни. Пока будет просто час ненастоящего дня
             val startTime = Timestamp((3600000 * 8 + i * 3600000).toLong())
             val finishTime = Timestamp((3600000 * 8 + (i + 1) * 3600000).toLong())
-            val item = DailyItem(startTime, finishTime, "name$i", "description")
+            val item = DailyItem(startTime, finishTime, "", "")
             addDailyItem(item)
         }
-    }
+    }*/
 
     override fun addDailyItem(dailyItem: DailyItem) {
         if (dailyItem.id == DailyItem.UNDEFINED_ID) {

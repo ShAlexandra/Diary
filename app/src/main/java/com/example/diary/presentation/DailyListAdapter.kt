@@ -22,6 +22,9 @@ class DailyListAdapter : ListAdapter<DailyItem, DailyItemViewHolder>(DailyItemDi
         }
         viewHolder.tvName.text = dailyItem.name
         viewHolder.tvTime.text =
-            "${dailyItem.date_start.time / 3600000}.00 - ${dailyItem.date_finish.time / 3600000}.00"
+            "${dailyItem.date_start.toString().substringAfter(' ').
+            substringBefore(':')}.00 - " +
+                    "${dailyItem.date_finish.toString().substringAfter(' ').
+                    substringBefore(':')}.00"
     }
 }
