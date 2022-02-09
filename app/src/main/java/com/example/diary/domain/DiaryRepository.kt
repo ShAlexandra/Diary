@@ -6,8 +6,6 @@ interface DiaryRepository {
 
     fun addDailyItem(dailyItem: DailyItem)
 
-    fun deleteDailyItem(dailyItem: DailyItem)
-
     fun getDailyItem(shopDailyId: Int): DailyItem
 
     fun getDailyList(): LiveData<List<DailyItem>>

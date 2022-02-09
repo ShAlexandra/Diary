@@ -1,5 +1,7 @@
 package com.example.diary.presentation
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,9 +9,9 @@ import com.example.diary.data.DiaryRepositoryImpl
 import com.example.diary.domain.DailyItem
 import com.example.diary.domain.GetDailyItemUseCase
 
-class DailyItemOverviewViewModel : ViewModel() {
+class DailyItemOverviewViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository = DiaryRepositoryImpl
+    private val repository = DiaryRepositoryImpl(application)
 
     private val getDailyItemUseCase = GetDailyItemUseCase(repository)
 
