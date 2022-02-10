@@ -7,10 +7,9 @@
     android:focusedByDefault="true">
 
     <CalendarView
-        android:id="@+id/calendarView"
+        android:id="@+id/cv_main"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minDate="01/01/2022"
         app:layout_constraintBottom_toTopOf="@+id/spin_time"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,7 +27,7 @@
         app:layout_constraintBottom_toTopOf="@+id/til_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/calendarView" />
+        app:layout_constraintTop_toBottomOf="@id/cv_main" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_name"

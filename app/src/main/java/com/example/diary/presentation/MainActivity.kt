@@ -1,13 +1,13 @@
 package com.example.diary.presentation
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.CalendarView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.diary.R
-import com.example.diary.domain.DailyItem
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import java.time.LocalDateTime
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,17 +17,30 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setupRecyclerView()
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
-        viewModel.diaryList.observe(this) {
+        setupRecyclerView()
+        viewModel.getStartDateForList(LocalDateTime.now().year, LocalDateTime.now().monthValue, LocalDateTime.now().dayOfMonth).observe(this) {
             dailyListAdapter.submitList(it)
         }
+        buttonListener()
+        calendarListener()
+    }
+
+    private fun calendarListener(){
+        val changeDate = findViewById<CalendarView>(R.id.cv_date_list)
+        changeDate.setOnDateChangeListener{p0, year, month, day ->
+            viewModel.getStartDateForList(year,month+1, day).observe(this) {
+                dailyListAdapter.submitList(it)
+            }
+        }
+    }
+
+    private fun buttonListener() {
         val buttonAddItem = findViewById<FloatingActionButton>(R.id.button_add_new_item)
         buttonAddItem.setOnClickListener {
             val intent = DailyItemActivity.newIntentAddItem(this)
             startActivity(intent)
         }
-
     }
 
     private fun setupRecyclerView() {

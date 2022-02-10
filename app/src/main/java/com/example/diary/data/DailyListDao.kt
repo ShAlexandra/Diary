@@ -9,9 +9,9 @@ import androidx.room.Query
 @Dao
 interface DailyListDao {
 
-    //TODO переделать на список по дате
-    @Query("SELECT * FROM daily_items")
-    fun getDailyList(): LiveData<List<DailyItemDbModel>>
+    //@Query("SELECT * FROM daily_items WHERE (date_start >= :start AND date_start<:start+86400000) ORDER BY date_start")
+    @Query("SELECT * FROM daily_items WHERE date_start BETWEEN :start AND (:start+86400000) ORDER BY date_start")
+    fun getDailyList(start: Long): LiveData<List<DailyItemDbModel>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addShopItem(dailyItemDbModel: DailyItemDbModel)

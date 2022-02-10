@@ -2,17 +2,11 @@ package com.example.diary.data
 
 import android.app.Application
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.example.diary.domain.DailyItem
 import com.example.diary.domain.DiaryRepository
-import java.sql.Timestamp
-import java.text.SimpleDateFormat
 
-class DiaryRepositoryImpl(
-    application: Application
-) : DiaryRepository {
+class DiaryRepositoryImpl(application: Application) : DiaryRepository {
 
     private val dailyListDao=AppDatabase.getInstance(application).dailyListDao()
     private val mapper=DailyListMapper()
@@ -29,8 +23,8 @@ class DiaryRepositoryImpl(
         return mapper.mapDbModelToEntity(dbModel)
     }
 
-    override fun getDailyList(): LiveData<List<DailyItem>> = Transformations.map(
-        dailyListDao.getDailyList()
+    override fun getDailyList(start: Long): LiveData<List<DailyItem>> = Transformations.map(
+        dailyListDao.getDailyList(start)
     ){
         mapper.mapListDbModelToListEntity(it)
     }

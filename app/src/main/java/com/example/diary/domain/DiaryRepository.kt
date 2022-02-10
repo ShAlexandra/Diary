@@ -8,5 +8,5 @@ interface DiaryRepository {
 
     fun getDailyItem(shopDailyId: Int): DailyItem
 
-    fun getDailyList(): LiveData<List<DailyItem>>
+    fun getDailyList(start: Long): LiveData<List<DailyItem>>
 }

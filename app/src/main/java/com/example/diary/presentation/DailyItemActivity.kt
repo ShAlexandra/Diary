@@ -5,19 +5,15 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
-import android.widget.*
-import android.widget.CalendarView.OnDateChangeListener
+import android.widget.Button
+import android.widget.CalendarView
+import android.widget.EditText
+import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.get
 import androidx.lifecycle.ViewModelProvider
 import com.example.diary.R
-import com.example.diary.domain.DailyItem
 import com.google.android.material.textfield.TextInputLayout
 import java.sql.Timestamp
-import java.time.DayOfWeek
-import java.time.Month
-import java.time.Year
 
 class DailyItemActivity : AppCompatActivity() {
 
@@ -32,7 +28,6 @@ class DailyItemActivity : AppCompatActivity() {
     private lateinit var spinTime: Spinner
 
     private var screenMode = MODE_UNKNOWN
-    private var shopItemId = DailyItem.UNDEFINED_ID
 
     private var calYear: Int = UNSPECIFIED
     private var calMonth: Int = UNSPECIFIED
@@ -65,20 +60,15 @@ class DailyItemActivity : AppCompatActivity() {
         etName = findViewById(R.id.et_name)
         tilDescription = findViewById(R.id.til_description)
         etDescription = findViewById(R.id.et_description)
-        calendarView = findViewById(R.id.calendarView)
+        calendarView = findViewById(R.id.cv_main)
         buttonSave = findViewById(R.id.save_button)
         spinTime = findViewById(R.id.spin_time)
     }
 
     private fun launchRightMode() {
         when (screenMode) {
-            MODE_WATCH -> launchWatchMode()
             MODE_ADD -> launchAddMode()
         }
-    }
-
-    private fun launchWatchMode() {
-        TODO()
     }
 
     private fun launchAddMode() {
@@ -99,7 +89,6 @@ class DailyItemActivity : AppCompatActivity() {
                     etDescription.text?.toString()
                 )
             } else {
-                Log.d("input_fucking_time", spinTime.toString())
                 viewModel.addDailyItem(
                     calYear,
                     calMonth,
