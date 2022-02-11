@@ -1,8 +1,14 @@
 package com.example.diary.domain
 
-class GetDailyListUseCase {
+import android.util.Log
+import androidx.lifecycle.LiveData
+import javax.inject.Inject
 
-    fun getDailyList():List<DailyItem>{
-        TODO()
+class GetDailyListUseCase @Inject constructor(
+    private val diaryRepository: DiaryRepository
+) {
+
+    fun getDailyList(start: Long): LiveData<List<DailyItem>> {
+        return diaryRepository.getDailyList(start)
     }
 }
