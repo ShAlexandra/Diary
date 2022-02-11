@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.diary.R
 import com.google.android.material.textfield.TextInputLayout
 import java.sql.Timestamp
+import javax.inject.Inject
 
 class DailyItemActivity : AppCompatActivity() {
 
@@ -29,15 +30,24 @@ class DailyItemActivity : AppCompatActivity() {
 
     private var screenMode = MODE_UNKNOWN
 
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    private val component by lazy {
+        (application as DailyApplication).component
+    }
+
     private var calYear: Int = UNSPECIFIED
     private var calMonth: Int = UNSPECIFIED
     private var calDay: Int = UNSPECIFIED
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        component.inject(this)
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_daily_item)
         parseIntent()
-        viewModel = ViewModelProvider(this)[DailyItemViewModel::class.java]
+        viewModel = ViewModelProvider(this, viewModelFactory)[DailyItemViewModel::class.java]
         initViews()
         addTextChangeListener()
         launchRightMode()
@@ -78,8 +88,7 @@ class DailyItemActivity : AppCompatActivity() {
                 calYear = newData.substringBefore('-').toInt()
                 calMonth = newData.substringAfter('-').substringBefore('-').toInt()
                 calDay =
-                    newData.substringAfter('-').substringAfter('-').
-                    substringBefore(' ').toInt()
+                    newData.substringAfter('-').substringAfter('-').substringBefore(' ').toInt()
                 viewModel.addDailyItem(
                     calYear,
                     calMonth,

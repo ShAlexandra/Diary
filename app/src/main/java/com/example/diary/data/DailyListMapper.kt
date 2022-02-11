@@ -1,8 +1,9 @@
 package com.example.diary.data
 
 import com.example.diary.domain.DailyItem
+import javax.inject.Inject
 
-class DailyListMapper {
+class DailyListMapper @Inject constructor() {
 
     fun mapEntityToDbModel(dailyItem: DailyItem) = DailyItemDbModel(
         id = dailyItem.id,
@@ -20,7 +21,7 @@ class DailyListMapper {
         description = dailyItemDbModel.description
     )
 
-    fun mapListDbModelToListEntity(list: List<DailyItemDbModel>)=list.map{
+    fun mapListDbModelToListEntity(list: List<DailyItemDbModel>) = list.map {
         mapDbModelToEntity(it)
     }
 }

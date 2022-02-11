@@ -1,22 +1,19 @@
 package com.example.diary.presentation
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import com.example.diary.data.DiaryRepositoryImpl
+import androidx.lifecycle.ViewModel
 import com.example.diary.domain.DailyItem
 import com.example.diary.domain.GetDailyListUseCase
 import java.sql.Timestamp
+import javax.inject.Inject
 
-class MainViewModel(application: Application) : AndroidViewModel(application) {
-
-    private val repository = DiaryRepositoryImpl(application)
-
-    private val getDailyListUseCase = GetDailyListUseCase(repository)
+class MainViewModel @Inject constructor(
+    private val getDailyListUseCase: GetDailyListUseCase
+) : ViewModel() {
 
     private var start: Long = UNKNOWN_START
 
-    fun getStartDateForList(year: Int, month: Int, day: Int):LiveData<List<DailyItem>> {
+    fun getStartDateForList(year: Int, month: Int, day: Int): LiveData<List<DailyItem>> {
         start = Timestamp.valueOf("$year-$month-$day 00:00:00").time
         return getDailyListUseCase.getDailyList(start)
     }

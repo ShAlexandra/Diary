@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.diary.R
 import com.example.diary.domain.DailyItem
+import javax.inject.Inject
 
 class DailyItemOverviewActivity : AppCompatActivity() {
 
@@ -23,17 +24,27 @@ class DailyItemOverviewActivity : AppCompatActivity() {
     private var screenMode = MODE_UNKNOWN
     private var dailyItemId = DailyItem.UNDEFINED_ID
 
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    private val component by lazy {
+        (application as DailyApplication).component
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        component.inject(this)
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_watch_daily_item)
         parseIntent()
-        viewModel = ViewModelProvider(this)[DailyItemOverviewViewModel::class.java]
+        viewModel =
+            ViewModelProvider(this, viewModelFactory)[DailyItemOverviewViewModel::class.java]
         initViews()
         initFields()
         buttonBack.setOnClickListener {
             viewModel.finishOverview()
         }
-        viewModel.shouldCloseScreen.observe(this){
+        viewModel.shouldCloseScreen.observe(this) {
             finish()
         }
     }
@@ -43,9 +54,11 @@ class DailyItemOverviewActivity : AppCompatActivity() {
         viewModel.dailyItem.observe(this) {
             tvName.text = it.name
             tvDate.text = it.date_start.toString().substringBefore(' ')
-            tvTime.text = "${it.date_start.toString().substringAfter(' ').
-            substringBefore(':')}.00 - ${it.date_finish.toString().
-            substringAfter(' ').substringBefore(':')}.00"
+            tvTime.text = "${
+                it.date_start.toString().substringAfter(' ').substringBefore(':')
+            }.00 - ${
+                it.date_finish.toString().substringAfter(' ').substringBefore(':')
+            }.00"
             tvDescription.text = it.description
         }
     }
@@ -56,7 +69,8 @@ class DailyItemOverviewActivity : AppCompatActivity() {
         }
         val mode = intent.getStringExtra(DailyItemOverviewActivity.EXTRA_SCREEN_MODE)
         if (mode != DailyItemOverviewActivity.MODE_WATCH &&
-            mode != DailyItemOverviewActivity.MODE_ADD) {
+            mode != DailyItemOverviewActivity.MODE_ADD
+        ) {
             throw RuntimeException("Unknown screen mode $mode")
         }
         screenMode = mode

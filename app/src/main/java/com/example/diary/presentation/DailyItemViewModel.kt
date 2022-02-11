@@ -1,21 +1,16 @@
 package com.example.diary.presentation
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.diary.data.DiaryRepositoryImpl
+import androidx.lifecycle.ViewModel
 import com.example.diary.domain.AddDailyItemUseCase
 import com.example.diary.domain.DailyItem
-import com.example.diary.domain.GetDailyItemUseCase
 import java.sql.Timestamp
+import javax.inject.Inject
 
-class DailyItemViewModel(application: Application) : AndroidViewModel(application) {
-
-    private val repository = DiaryRepositoryImpl(application)
-
-    private val getDailyItemUseCase = GetDailyItemUseCase(repository)
-    private val addDailyItemUseCase = AddDailyItemUseCase(repository)
+class DailyItemViewModel @Inject constructor(
+    private val addDailyItemUseCase: AddDailyItemUseCase
+) : ViewModel() {
 
     private val _dailyItem = MutableLiveData<DailyItem>()
     val dailyItem: LiveData<DailyItem>
@@ -39,9 +34,10 @@ class DailyItemViewModel(application: Application) : AndroidViewModel(applicatio
     ) {
         val name = parseStringInput(inputName)
         val description = parseStringInput(inputDescription)
-        val timeStart=inputTime.substringBefore('.').toInt()
+        val timeStart = inputTime.substringBefore('.').toInt()
         val dateStart = Timestamp.valueOf("$inputYear-$inputMonth-$inputDay ${timeStart}:00:00")
-        val dateFinish=Timestamp.valueOf("$inputYear-$inputMonth-$inputDay ${timeStart+1}:00:00")
+        val dateFinish =
+            Timestamp.valueOf("$inputYear-$inputMonth-$inputDay ${timeStart + 1}:00:00")
         if (validateInput(name)) {//невалидным мб только имя
             val dailyItem = DailyItem(dateStart, dateFinish, name, description)
             addDailyItemUseCase.addDailyItem(dailyItem)

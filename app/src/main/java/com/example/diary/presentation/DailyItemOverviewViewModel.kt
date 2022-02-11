@@ -4,15 +4,15 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.example.diary.data.DiaryRepositoryImpl
 import com.example.diary.domain.DailyItem
 import com.example.diary.domain.GetDailyItemUseCase
+import javax.inject.Inject
 
-class DailyItemOverviewViewModel(application: Application) : AndroidViewModel(application) {
-
-    private val repository = DiaryRepositoryImpl(application)
-
-    private val getDailyItemUseCase = GetDailyItemUseCase(repository)
+class DailyItemOverviewViewModel @Inject constructor(
+    private val getDailyItemUseCase: GetDailyItemUseCase
+) : ViewModel() {
 
     private val _dailyItem = MutableLiveData<DailyItem>()
     val dailyItem: LiveData<DailyItem>
@@ -27,11 +27,11 @@ class DailyItemOverviewViewModel(application: Application) : AndroidViewModel(ap
         _dailyItem.value = item
     }
 
-    fun finishOverview(){
+    fun finishOverview() {
         finishWork()
     }
 
-    private fun finishWork(){
+    private fun finishWork() {
         _shouldCloseScreen.value = Unit
     }
 }

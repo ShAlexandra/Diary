@@ -1,8 +1,12 @@
 package com.example.diary.domain
 
-class AddDailyItemUseCase(private val diaryRepository: DiaryRepository) {
+import javax.inject.Inject
 
-    fun addDailyItem(dailyItem: DailyItem){
+class AddDailyItemUseCase @Inject constructor(
+    private val diaryRepository: DiaryRepository
+) {
+
+    fun addDailyItem(dailyItem: DailyItem) {
         diaryRepository.addDailyItem(dailyItem)
     }
 }
