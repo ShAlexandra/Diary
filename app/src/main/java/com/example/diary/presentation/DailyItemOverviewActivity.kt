@@ -51,25 +51,25 @@ class DailyItemOverviewActivity : AppCompatActivity() {
 
     private fun initFields() {
         viewModel.getDailyItem(dailyItemId)
-        viewModel.dailyItem.observe(this) {
+        viewModel.dailyItem.observe(this) { it ->
             tvName.text = it.name
             tvDate.text = it.date_start.toString().substringBefore(' ')
-            tvTime.text = "${
+            "${
                 it.date_start.toString().substringAfter(' ').substringBefore(':')
             }.00 - ${
                 it.date_finish.toString().substringAfter(' ').substringBefore(':')
-            }.00"
+            }.00".also { tvTime.text = it }
             tvDescription.text = it.description
         }
     }
 
     private fun parseIntent() {
-        if (!intent.hasExtra(DailyItemOverviewActivity.EXTRA_SCREEN_MODE)) {
+        if (!intent.hasExtra(EXTRA_SCREEN_MODE)) {
             throw RuntimeException("Param screen mode don't exist here")
         }
-        val mode = intent.getStringExtra(DailyItemOverviewActivity.EXTRA_SCREEN_MODE)
-        if (mode != DailyItemOverviewActivity.MODE_WATCH &&
-            mode != DailyItemOverviewActivity.MODE_ADD
+        val mode = intent.getStringExtra(EXTRA_SCREEN_MODE)
+        if (mode != MODE_WATCH &&
+            mode != MODE_ADD
         ) {
             throw RuntimeException("Unknown screen mode $mode")
         }

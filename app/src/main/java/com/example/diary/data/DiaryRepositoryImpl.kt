@@ -1,6 +1,5 @@
 package com.example.diary.data
 
-import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.example.diary.domain.DailyItem

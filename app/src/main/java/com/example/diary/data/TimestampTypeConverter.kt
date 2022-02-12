@@ -7,7 +7,7 @@ class TimestampTypeConverter {
 
     @TypeConverter
     fun longFromTimestamp(date:Timestamp?): Long? {
-        return date?.time?.toLong()
+        return date?.time
     }
 
     @TypeConverter

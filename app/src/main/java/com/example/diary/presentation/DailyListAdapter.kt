@@ -8,7 +8,7 @@ import com.example.diary.domain.DailyItem
 
 class DailyListAdapter : ListAdapter<DailyItem, DailyItemViewHolder>(DailyItemDiffCallback()) {
 
-    var onButtonAddingClickListener: ((DailyItem) -> Unit)? = null
+    private var onButtonAddingClickListener: ((DailyItem) -> Unit)? = null
     var onDailyItemClickListener: ((DailyItem) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DailyItemViewHolder {
@@ -25,12 +25,11 @@ class DailyListAdapter : ListAdapter<DailyItem, DailyItemViewHolder>(DailyItemDi
             onDailyItemClickListener?.invoke(dailyItem)
         }
         viewHolder.tvName.text = dailyItem.name
-        viewHolder.tvTime.text =
-            "${
-                dailyItem.date_start.toString().substringAfter(' ').substringBefore(':')
-            }.00 - " +
-                    "${
-                        dailyItem.date_finish.toString().substringAfter(' ').substringBefore(':')
-                    }.00"
+        ("${
+            dailyItem.date_start.toString().substringAfter(' ').substringBefore(':')
+        }.00 - " +
+                "${
+                    dailyItem.date_finish.toString().substringAfter(' ').substringBefore(':')
+                }.00").also { viewHolder.tvTime.text = it }
     }
 }

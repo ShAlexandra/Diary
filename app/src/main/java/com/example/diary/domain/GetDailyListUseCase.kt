@@ -1,6 +1,5 @@
 package com.example.diary.domain
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import javax.inject.Inject
 
