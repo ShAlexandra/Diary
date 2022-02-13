@@ -46,6 +46,7 @@ class DailyItemActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_daily_item)
+        supportActionBar?.hide()
         parseIntent()
         viewModel = ViewModelProvider(this, viewModelFactory)[DailyItemViewModel::class.java]
         initViews()
