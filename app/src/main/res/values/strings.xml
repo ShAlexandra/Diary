@@ -2,18 +2,28 @@
     <string name="app_name">Diary</string>
     <string name="add_new_daily_item">Add new daily item</string>
     <string-array name="spinner_array">
-        <item>08.00-09.00</item>
-        <item>09.00-10.00</item>
-        <item>10.00-11.00</item>
-        <item>11.00-12.00</item>
-        <item>12.00-13.00</item>
-        <item>13.00-14.00</item>
-        <item>14.00-15.00</item>
-        <item>15.00-16.00</item>
-        <item>16.00-17.00</item>
-        <item>17.00-18.00</item>
-        <item>19.00-20.00</item>
-        <item>20.00-21.00</item>
+        <item>08.00–09.00</item>
+        <item>09.00–10.00</item>
+        <item>10.00–11.00</item>
+        <item>11.00–12.00</item>
+        <item>12.00–13.00</item>
+        <item>13.00–14.00</item>
+        <item>14.00–15.00</item>
+        <item>15.00–16.00</item>
+        <item>16.00–17.00</item>
+        <item>17.00–18.00</item>
+        <item>19.00–20.00</item>
+        <item>20.00–21.00</item>
     </string-array>
     <string name="error_input_name">Invalid name</string>
+    <string name="description">Description:</string>
+    <string name="save">Save</string>
+    <string name="name">Name:</string>
+    <string name="example_name">учеба</string>
+    <string name="example_time">13.00–14.00</string>
+    <string name="ok">OK</string>
+    <string name="case_description">Описание дела:</string>
+    <string name="time">Время:</string>
+    <string name="day">День:</string>
+    <string name="case_name">Название дела:</string>
 </resources>

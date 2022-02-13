@@ -50,7 +50,7 @@ class DailyItemViewModel @Inject constructor(
         return inputValue?.trim() ?: ""
     }
 
-    private fun validateInput(name: String): Boolean {
+     private fun validateInput(name: String): Boolean {
         var result = true
         if (name.isBlank()) {
             _errorInputName.value = true

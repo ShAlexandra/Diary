@@ -6,6 +6,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.diary.R
 
 class DailyItemViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-    val tvTime = view.findViewById<TextView>(R.id.tv_time)
-    val tvName = view.findViewById<TextView>(R.id.tv_name)
+    val tvTime: TextView = view.findViewById(R.id.tv_time)
+    val tvName: TextView = view.findViewById(R.id.tv_name)
 }
